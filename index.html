@@ -54,7 +54,7 @@
     .layers{flex-direction:column;gap:8px} .layer{min-width:0;width:100%;padding:8px 10px} .layer .h{font-size:11px} .layer select{font-size:15px}
     .layer .sub{display:none}
     .judge{padding:10px} .judge .t{font-size:14px} .judge ul{font-size:12px} .badge{font-size:11px}
-    table{font-size:12px} th,td{padding:4px 4px} th.n,td.n{display:none}
+    table{font-size:12px} th,td{padding:4px 3px}
     .note{font-size:11px}
   }
 </style>
@@ -104,7 +104,7 @@
 <h2>2. 期待値(着席G別、50G刻み)</h2>
 <div class="card">
   <div class="note" id="polnote" style="margin:0 0 10px"></div>
-  <div class="scroll"><table id="tbl"><thead><tr><th>着席G</th><th class="n">n</th><th>初当り</th><th>RUSH_TY</th><th>期待値(円)</th><th>ROI%</th></tr></thead><tbody></tbody></table></div>
+  <div class="scroll"><table id="tbl"><thead><tr><th>着席G</th><th class="n">サンプル数</th><th>初当り</th><th>RUSH_TY</th><th>期待値(円)</th><th>ROI%</th></tr></thead><tbody></tbody></table></div>
 </div>
 
 </div>
@@ -120,7 +120,7 @@ document.getElementById('meta').textContent = `データ: ${M.basis} ｜ 切断�
 const bsel = document.getElementById('band');
 function fillBands(sit) {                       // 状況ごとの帯でプルダウンを作り直す(同じ帯があれば選択を維持)
   const keep = bsel.value; bsel.innerHTML = '';
-  sit.bands.forEach(b => { const o = document.createElement('option'); o.value = b.key; o.textContent = b.label; bsel.appendChild(o); });
+  sit.bands.forEach(b => { const o = document.createElement('option'); o.value = b.key; o.textContent = `${b.label}(n=${b.n.toLocaleString()})`; bsel.appendChild(o); });
   if ([...bsel.options].some(o => o.value === keep)) bsel.value = keep;
 }
 function yen(ev) { const v = Math.ceil(ev * YEN); return (v >= 0 ? '+' : '−') + Math.abs(v).toLocaleString() + '円'; }
